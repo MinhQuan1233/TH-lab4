@@ -1,0 +1,219 @@
+package giaodichdat;
+
+import java.util.Scanner;
+
+public class giaodich {
+ String magiaodich, ngaygiaodich;
+ long dongia;
+ float dientich;
+ Scanner sc = new Scanner(System.in);
+ 
+ public giaodich() {
+	 super();
+ }
+ public giaodich(String magiaodich, String ngaygiaodich, long dongia, float dientich) {
+	 super();
+	 this.dientich = dientich;
+	 this.dongia = dongia;
+	 this.magiaodich = magiaodich;
+	 this.ngaygiaodich = ngaygiaodich;
+ }
+ public String getmagiaodich() {
+	 return this.magiaodich;
+ }
+ public void setmagiaodich(String magiaodich) {
+	 this.magiaodich = magiaodich;
+ }
+ public String getngaygiaodich() {
+	 return this.ngaygiaodich;
+ }
+ public void setngaygiaodich(String ngaygiaodich) {
+	 this.ngaygiaodich = ngaygiaodich;
+ } 
+ public long getdongia() {
+	 return  this.dongia;
+ }
+ public void setdongia(long dongia) {
+	 this.dongia = dongia;
+ }
+ public float getdientich() {	
+	 return  this.dientich;
+ }
+ public void setdientich(float dientich) {
+	 this.dientich = dientich; 
+ }
+ public void nhap() {
+	 System.out.print("Nhập mã giao dịch: ");
+	 magiaodich = sc.nextLine();
+	 System.out.print("Nhập ngày giao dịch: ");
+	 ngaygiaodich = sc.nextLine();
+	 System.out.print("Nhập đơn giá: ");
+	 dongia = Long.parseLong(sc.nextLine());
+	 System.out.print("Nhập diện tích: ");
+	 dientich = Float.parseFloat(sc.nextLine());
+ }
+ @Override
+ public String toString() {
+	 return "Mã giao dịch: " + this.magiaodich + ", Ngày giao dịch: " + this.ngaygiaodich + ", đơn giá: " + this.dongia + ",  diện tích:" + this.dientich;
+ }
+}
+
+package giaodichdat;
+import java.util.Scanner;
+public class giaodichdat extends giaodich {
+	String loaidat;
+	Scanner sc = new Scanner(System.in);
+public giaodichdat() {
+	super();
+}
+public giaodichdat(String loaidat) {
+	super();
+	this.loaidat = loaidat;
+}
+public String getloaidat() {
+	return this.loaidat;
+}
+public void setloaidat(String loaidat) {
+	this.loaidat = loaidat;
+}
+public void nhap() {
+	super.nhap();
+	System.out.print("Nhập loại đất (A-B-C):" );
+	loaidat = sc.nextLine();	
+}
+@Override
+public String toString() {
+	return super.toString() + ", Loại đất: " + this.loaidat;
+}
+}
+
+package giaodichdat;
+
+import java.util.Scanner;
+public class giaodichnha extends giaodich{
+String loainha, diachi;
+int choose;
+Scanner sc = new Scanner(System.in);
+public giaodichnha() {
+	super();
+}
+public giaodichnha(String loainha, String diachi, int choose) {
+	super();
+	this.diachi = diachi;
+	this.loainha = loainha;
+}
+public String getloainha() {
+	return this.loainha;
+}
+public void setloainha(String loainha) {
+	this.loainha = loainha;
+}
+public String getdiachi() {
+	return this.diachi;
+}
+public void setdiachi(String diachi) {
+	this.diachi = diachi;
+}
+public void nhap() {
+	super.nhap();
+	System.out.print("Nhập Loại nhà (0: Cao cấp, 1; thường): ");
+	choose = sc.nextInt();
+	switch (choose){
+	case 0:
+		loainha = "cao cấp";
+		break;
+	case 1:
+		loainha = "thường";
+		break;
+		default:
+			System.out.print("số ko hợp lệ" );
+	        break;
+	}
+	System.out.print("Nhập địa chỉ:" );
+	diachi = sc.nextLine();
+}
+
+@Override
+public String toString() {
+	return super.toString() + ", loại nhà: " + this.loainha + ", địa chỉ: " + this.diachi;
+}
+}
+
+package giaodichdat;
+
+import java.util.Scanner;
+import java.util.ArrayList;
+public class main {
+
+	public static void main(String[] args) {
+		ArrayList<giaodichdat> arrgiaodichdat = new ArrayList<>();
+		ArrayList<giaodichnha> arrgiaodichnha = new ArrayList<>();
+		int sogiaodichdat = 0, sogiaodichnha = 0;
+		long tongtiengiaodichdat = 0, trungbinhthanhtien = 0;
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.print("Nhập số giao dịch đất: ");
+		sogiaodichdat = scanner.nextInt();
+        System.out.print("Nhập số giao dịch nhà: ");
+        sogiaodichnha = scanner.nextInt();
+         
+        System.out.println("Nhập thông tin giao dịch đất:");
+        for (int i = 0; i < sogiaodichdat; i++) {
+            System.out.println("Nhập thông tin giao dịch đất thứ " + (i + 1) + ":");
+            giaodichdat gdd = new giaodichdat();
+            gdd.nhap();
+            arrgiaodichdat.add(gdd);
+        }
+         
+        System.out.println("Nhập thông tin giao dịch nhà:");
+        for (int i = 0; i < sogiaodichnha; i++) {
+            System.out.println("Nhập thông tin giao dịch nhà thứ " + (i + 1) + ":");
+            giaodichnha gdn = new giaodichnha();
+            gdn.nhap();
+            arrgiaodichnha.add(gdn);
+        }
+         
+        System.out.println("---Thông tin các giao dịch đất---");
+        for (int i = 0; i < arrgiaodichnha.size(); i++) {
+            System.out.println(arrgiaodichdat.get(i).toString());
+        }
+         
+        System.out.println("---Thông tin các giao dịch nhà---");
+        for (int i = 0; i < arrgiaodichnha.size(); i++) {
+            System.out.println(arrgiaodichnha.get(i).toString());
+        }
+         
+        for (int i = 0; i < arrgiaodichdat.size(); i++) {
+            if (arrgiaodichdat.get(i).getloaidat().equalsIgnoreCase("A")) {
+                tongtiengiaodichdat += arrgiaodichdat.get(i).getdientich() * 
+                    arrgiaodichdat.get(i).getdongia() * 1.5;
+            } else if (arrgiaodichdat.get(i).getloaidat().equalsIgnoreCase("B") || 
+                    arrgiaodichdat.get(i).getloaidat().equalsIgnoreCase("C")) {
+                tongtiengiaodichdat += arrgiaodichdat.get(i).getdientich() * 
+                    arrgiaodichdat.get(i).getdongia();
+            }
+        }
+        trungbinhthanhtien = tongtiengiaodichdat / (arrgiaodichdat.size());
+        System.out.println("Trung bình thành tiền của giao dịch đất = " + trungbinhthanhtien);
+         
+      
+        System.out.println("Các giao dịch đất của tháng 9 năm 2013: ");
+        for (int i = 0; i < arrgiaodichdat.size(); i++) {
+            String[] dateGiaoDichDat = arrgiaodichdat.get(i).getngaygiaodich().split("/");
+            if (dateGiaoDichDat[1].equals("9") && dateGiaoDichDat[2].equals("2013")) {
+                System.out.println(arrgiaodichdat.get(i).toString());
+            }
+        }
+         
+        System.out.println("Các giao dịch nhà của tháng 9 năm 2013: ");
+        for (int i = 0; i < arrgiaodichnha.size(); i++) {
+            String[] dateGiaoDichNha = arrgiaodichnha.get(i).getngaygiaodich().split("/");
+            if (dateGiaoDichNha[1].equals("9") && dateGiaoDichNha[2].equals("2013")) {
+                System.out.println(arrgiaodichnha.get(i).toString());
+            }
+        }
+    }
+
+}
+
+
